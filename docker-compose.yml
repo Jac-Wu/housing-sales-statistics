@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  housing-sales:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: housing-sales-statistics:latest
+    container_name: housing-sales-app
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      # 本地目录挂载：数据库文件持久化到 ./data 目录
+      - ./data:/app/data
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - HOST=0.0.0.0
+      - DATA_DIR=/app/data
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  default:
+    name: housing-sales-network
