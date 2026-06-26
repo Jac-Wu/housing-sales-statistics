@@ -6,7 +6,6 @@ backend/data/*.db
 npm-debug.log*
 
 # 文档
-README.md
 docs/
 
 # 根目录无 package.json 的锁文件
