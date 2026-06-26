@@ -9,12 +9,14 @@ npm-debug.log*
 README.md
 docs/
 
+# 根目录无 package.json 的锁文件
+/package-lock.json
+
 # Docker 构建产物
 dist/*.tar
 
 # 本地数据库文件（Docker 挂载）
-data/*.db
-!data/.gitkeep
+data/
 
 # 打包产物
 dist/*.tar.gz
